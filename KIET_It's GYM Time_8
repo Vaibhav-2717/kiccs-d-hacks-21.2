@@ -1,1 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long 
+#define deb(x) cerr<<"["<<#x<<": "<<x<<"]"<<endl;
+#define F first
+#define S second
+#define debp(x) cerr<<"["<<#x<<": "<<x.F<<" , "<<x.S<<"]"<<endl;
+#define debv(v) cerr<<"{"<<#v<<":";for(auto i:v)cerr<<"  "<<i;cerr<<"}"<<endl;
+#define get(v) for(auto &i:v) cin>>i;
+#define print(v) for(auto i:v) cout<<i<<" ";
+#define trav(v) for(auto it=v.begin();it!=v.end();it++)
+#define sz(x) x.size()
+#define For(n) for(auto i=0;i<n;i++)
+#define rep(i,a,b) for(auto i=a;i<b;i++)
+#define per(i,a,b) for(auto i=a;i>=b;i--)
+#define vll vector<ll>
+#define vi vector<int>
+#define all(x) x.begin(),x.end()
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define vpll vector<pll>
+#define pb push_back
+#define mp make_pair
+#define MOD 1000000007
+const ll INF = 1e8;
+const int nax = 2e5 + 5;
 
+void solve() {
+    int n, w; cin>> n >> w; 
+    vi prot(n); vi wet(n);
+    get(prot);
+    get(wet);
+
+    vector<vector<int>> dp(n+1, vector<int>(w+1,0));
+
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= w; j++){
+            
+            if(wet[i-1] > j)
+                dp[i][j] = dp[i-1][j];
+            
+            else 
+                dp[i][j] = max(prot[i-1] + dp[i-1][j-wet[i-1]], dp[i-1][j]);  
+        }
+    }
+    cout << dp[n][w];
+
+}
+
+int32_t main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    int t = 1;
+    // cin >> t;
+    while(t--) {
+        solve(); 
+        cout << '\n'; 
+    }
+    return 0;
+}
